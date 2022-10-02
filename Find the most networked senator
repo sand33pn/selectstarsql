@@ -1,0 +1,8 @@
+with 'first' as (select sponsor_name, cosponsor_name from cosponsors
+group by sponsor_name, cosponsor_name)
+
+select first.sponsor_name, count(*) from first join first second
+on first.sponsor_name = second.cosponsor_name and
+first.cosponsor_name = second.sponsor_name
+group by first.sponsor_name
+order by count(*) desc limit 1
